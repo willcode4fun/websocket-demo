@@ -1,0 +1,10 @@
+doskey npm=C:\TOOLS\nodejs\npm $*
+npm init --yes
+npm install --save --save-exact express socket.io
+
+### REDIS
+windows:
+https://github.com/MSOpenTech/redis/releases
+
+npm install --save --save-exact redis
+https://www.sitepoint.com/using-redis-node-js/

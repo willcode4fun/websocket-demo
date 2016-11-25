@@ -1,0 +1,27 @@
+<html>
+  <body>
+    <p id='server-time'></p>
+	<p id='messages'></p>
+	<p><input type="button" value="Hello" id="poke" /></p>
+	
+    <script src="/socket.io/socket.io.js"></script>
+	<script src="/public/jquery-3.1.1.min.js"></script>
+    <script>
+      var socket = io();
+      var el = document.getElementById('server-time');
+      socket.on('time', function(timeString) {
+        el.innerHTML = 'Server time: ' + timeString;
+      });
+	  
+	  socket.on('message', function(message) {
+        //alert('Le serveur a un message pour vous : ' + message);
+		console.dir(message);
+	  })
+	  
+	  $('#poke').click(function () {
+		console.log('sending message');
+        socket.emit('hello', 'Salut serveur, ça va ?');
+      })
+    </script>
+  </body>
+</html>
