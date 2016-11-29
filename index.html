@@ -1,6 +1,7 @@
 <html>
   <body>
     <p id='server-time'></p>
+	<p>Your ID:<span id='uid'></span></p>
 	<p id='messages'></p>
 	<p><input type="button" value="Hello" id="poke" /></p>
 	
@@ -16,7 +17,11 @@
 	  socket.on('message', function(message) {
         //alert('Le serveur a un message pour vous : ' + message);
 		console.dir(message);
-	  })
+	  });
+	  socket.on('welcome', function(message) {
+		$('#uid').text(message.id);
+		console.dir(message);
+	  });
 	  
 	  $('#poke').click(function () {
 		console.log('sending message');
