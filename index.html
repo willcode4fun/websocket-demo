@@ -1,8 +1,35 @@
 <html>
+<head>
+<style>
+#auction-list,hr {
+clear: both;
+}
+.auction-item {
+	position:relative;
+	float:left;
+	width:200px;
+	padding: 5px;
+	border :1px solid black;
+}
+</style>
+</head>
+
   <body>
+  <!--Auction item template-->
+<template id="auction-item-template">
+    <div class="auction-item">
+        <h3 class="auction-name"></h3>
+		<p class="auction-description"></p>
+        <span class="auction-rating"></span>
+    </div>
+</template>
+  
     <p id='server-time'></p>
 	<p>Your ID:<span id='uid'></span></p>
 	<p id='messages'></p>
+	<div id="auction-list">
+	</div>
+	<hr/>
 	<p><input type="button" value="Hello" id="poke" /></p>
 	
     <script src="/socket.io/socket.io.js"></script>
@@ -21,6 +48,19 @@
 	  socket.on('welcome', function(message) {
 		$('#uid').text(message.id);
 		console.dir(message);
+		message.auctions.forEach(function(auction) {
+			// Get the template HTML as a string
+			var template = $('#auction-item-template').html();
+
+			// Change the string literal into a jQuery object
+			var $template = $(template);
+
+			// Insert the data into the template
+			$template.find('.auction-name').text(auction.item);
+			$template.find('.auction-description').text(auction.description);
+
+			$('#auction-list').append($template);
+		});
 	  });
 	  
 	  $('#poke').click(function () {

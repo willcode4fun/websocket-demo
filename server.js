@@ -27,7 +27,7 @@ io.on('connection', (socket) => {
   var uid = uuid.v4();
   console.log('Client connected with id:'+uid);
   
-  socket.emit('welcome', { content: 'Salut Client', importance: '1', id : uid , state : auctions});
+  socket.emit('welcome', { content: 'Salut Client', importance: '1', id : uid , "auctions" : auctions});
   
   socket.on('disconnect', () => console.log('Client disconnected'));
   
